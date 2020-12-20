@@ -29,7 +29,15 @@ namespace INIParser
 
             for (int i = 0; i < IniLines.Length; i++)
             {
-                ParseLine(IniLines[i]);
+                try
+                {
+                    ParseLine(IniLines[i]);
+                }
+                catch (Exception e)
+                {
+                    if (configuration.SkipInvalidLines)
+                        throw e;
+                }
             }
 
             return this.iniFile;
@@ -55,8 +63,7 @@ namespace INIParser
             if (ParseSection(line)) return;
             if (ParseProperty(line)) return;
 
-            if (!configuration.SkipInvalidLines)
-                throw new ParsingException($"Couldn't parse line: {line}.");
+            throw new ParsingException($"Couldn't parse line: {line}.");
         }
 
 
@@ -99,7 +106,10 @@ namespace INIParser
             var key = line.SubstringWithRange(keyRange);
             var value = line.SubstringWithRange(valueRange);
 
-            if (currentSection == null) return false;
+            if (currentSection == null)
+            {
+                throw new NoSectionException($"You must put {key} into section");
+            }
             iniFile.Sections.Where(x => x.Name == currentSection)
                 .FirstOrDefault()?
                 .Properties.Add(

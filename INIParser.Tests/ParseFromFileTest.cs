@@ -37,7 +37,7 @@ namespace INIParser.Tests
         [Fact]
         public void ShouldParseFromFileWithConfig()
         {
-            var parser = new IniDataParser(new IniConfiguration { AssignmentSymbol = "->", CommentSymbol = "//" });
+            var parser = new IniDataParser(new IniConfiguration { AssignmentSymbol = "->", CommentSymbol = "//", SkipInvalidLines = true });
 
             var iniFile = parser.ParseFromFile("Files/serialized_with_config.ini");
             var messageSection = iniFile["Message"];
