@@ -11,7 +11,8 @@ namespace INIParser
         {
             var objProps = obj.GetType().GetProperties()
                 .Where(x => x.CanRead && 
-                !x.PropertyType.IsGenericType)
+                !x.PropertyType.IsGenericType &&
+                (x.PropertyType.IsPrimitive || x.PropertyType == typeof(string)))
                 .Select(x => (x.Name, x.GetValue(obj)));
 
             var serialized = string.Empty;
