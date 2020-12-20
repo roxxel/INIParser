@@ -13,7 +13,7 @@ namespace INIParser.Tests
         {
             var parser = new IniDataParser();
 
-            var iniFile = parser.ParseFromFile("Files/serialized.ini");
+            var iniFile = parser.ParseFromFile("Assets/serialized.ini");
             var messageSection = iniFile["Message"];
  
             var senderPhone = messageSection["SenderPhone"];
@@ -39,7 +39,7 @@ namespace INIParser.Tests
         {
             var parser = new IniDataParser(new IniConfiguration { AssignmentSymbol = "->", CommentSymbol = "//", SkipInvalidLines = true });
 
-            var iniFile = parser.ParseFromFile("Files/serialized_with_config.ini");
+            var iniFile = parser.ParseFromFile("Assets/serialized_with_config.ini");
             var messageSection = iniFile["Message"];
 
             var senderPhone = messageSection["SenderPhone"];
@@ -57,7 +57,7 @@ namespace INIParser.Tests
 
             Assert.Throws(new FileNotFoundException().GetType(), () =>
             {
-                parser.ParseFromFile("Files/nothing.ini");
+                parser.ParseFromFile("Assets/nothing.ini");
             });
 
 

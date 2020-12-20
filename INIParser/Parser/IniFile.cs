@@ -15,7 +15,7 @@ namespace INIParser.Parser
 
         public Section this[string section]
         {
-            get { return Sections?.Where(x => x.Name == section).FirstOrDefault(); }
+            get => Sections.FirstOrDefault(x => x.Name == section);
         }
 
         public class Section
@@ -29,7 +29,7 @@ namespace INIParser.Parser
             }
             public object this[string property]
             {
-                get { return Properties?.Where(x => x.Key == property).Select(x=>x.Value).FirstOrDefault(); }
+                get => Properties.FirstOrDefault(x => x.Key == property)?.Value;
             }
 
         }

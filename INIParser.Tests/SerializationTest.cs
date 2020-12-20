@@ -19,7 +19,7 @@ namespace INIParser.Tests
             };
 
             var serialized = serializer.Serialize(message);
-            File.WriteAllText("Files/serialized.ini", serialized);
+            File.WriteAllText("Assets/serialized.ini", serialized);
         }
         [Fact]
         public void DoTestWithConfig()
@@ -35,7 +35,7 @@ namespace INIParser.Tests
             };
 
             var serialized = serializer.Serialize(message, new IniConfiguration { AssignmentSymbol = "->" });
-            File.WriteAllText("Files/serialized_with_config.ini", serialized);
+            File.WriteAllText("Assets/serialized_with_config.ini", serialized);
         }
 
     }
