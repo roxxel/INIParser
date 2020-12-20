@@ -23,7 +23,6 @@ namespace INIParser.Tests
 
             var iniFile = parser.Parse(ini);
 
-            Assert.Equal(2, iniFile.Sections.Count);
             var property1 = iniFile["External"]["ApiToken"];
 
             var property2 = iniFile["General"]["GenerateConfig"];

@@ -27,7 +27,7 @@ namespace INIParser.Tests
             Assert.Equal("Ben", senderName);
             Assert.Equal("Roxxel", recepientName);
             Assert.Equal("+747381817234", recepientPhone);
-            Assert.Equal("Hello, how it's going?", content);
+            Assert.Equal("Hello, how's it going?", content);
 
             Assert.Throws(new FileNotFoundException().GetType(), () =>
             {

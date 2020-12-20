@@ -79,7 +79,7 @@ namespace INIParser
         public bool ParseSection(string line)
         {
             var sectionStart = line.IndexOf("[");
-            var sectionEnd = line.IndexOf("]");
+            var sectionEnd = line.LastIndexOf("]");
             if (sectionStart == -1) return false;
             if (sectionEnd == -1) return false;
 
