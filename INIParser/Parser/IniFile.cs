@@ -110,7 +110,7 @@ namespace INIParser.Parser
     {
         public static string SubstringWithRange(this string str, IniFile.Range range)
         {
-            return str.Substring(range.Start, range.End - range.Start);
+            return str[range.Start..(range.End - range.Start)];
         }
     }
 }
