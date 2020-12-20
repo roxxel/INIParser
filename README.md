@@ -31,7 +31,7 @@ var data = parser.ParseFromFile("config.ini");
 ```csharp
 var ini = @"
 [General]
-Nickname = Roxxel"
+Nickname = Roxxel";
 var parser = new IniDataParser();
 var data = parser.Parse(ini);
 ```
@@ -49,7 +49,7 @@ var nick = data["General"]["Nickname"];
 
 ```csharp
 var serializer = new IniSerializer();
-string serialized = serializer.Serialize(objectToSerialize)
+string serialized = serializer.Serialize(objectToSerialize);
 ```
 `Serializer supports only primitive types and string`
 
