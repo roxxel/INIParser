@@ -56,7 +56,7 @@ namespace INIParser
         }
 
 
-        public void ParseLine(string line)
+        private void ParseLine(string line)
         {
             if (string.IsNullOrWhiteSpace(line)) return;
             if (ParseComment(line)) return;
@@ -67,7 +67,7 @@ namespace INIParser
         }
 
 
-        public bool ParseComment(string line)
+        private bool ParseComment(string line)
         {
             if (line.Trim().StartsWith(configuration.CommentSymbol))
             {
@@ -76,7 +76,7 @@ namespace INIParser
             return false;
         }
 
-        public bool ParseSection(string line)
+        private bool ParseSection(string line)
         {
             var sectionStart = line.IndexOf("[");
             var sectionEnd = line.LastIndexOf("]");
@@ -96,7 +96,7 @@ namespace INIParser
         }
 
 
-        public bool ParseProperty(string line)
+        private bool ParseProperty(string line)
         {
             var indexOfAssignmentChar = line.IndexOf(configuration.AssignmentSymbol);
             if (indexOfAssignmentChar == -1) return false;
