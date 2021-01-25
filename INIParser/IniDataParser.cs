@@ -9,14 +9,13 @@ namespace INIParser
 {
     public class IniDataParser
     {
-        private IniFile iniFile { get; }
+        private IniFile iniFile { get; set;  }
         private string currentSection = null;
         private IniConfiguration configuration;
 
         public IniDataParser(IniConfiguration configuration)
         {
             this.configuration = configuration;
-            iniFile = new IniFile();
         }
 
         public IniDataParser() : this(new IniConfiguration())
@@ -25,6 +24,7 @@ namespace INIParser
         } 
         public IniFile Parse(string iniFile)
         {
+            this.iniFile = new IniFile();
             var IniLines = iniFile.Split("\n");
 
             for (int i = 0; i < IniLines.Length; i++)
@@ -111,7 +111,7 @@ namespace INIParser
                 throw new NoSectionException($"You must put {key} into section");
             }
             iniFile.Sections.Where(x => x.Name == currentSection)
-                .FirstOrDefault()?
+                .FirstOrDefault()
                 .Properties.Add(
                 new Property(key.Trim(), value.Trim()));
 
