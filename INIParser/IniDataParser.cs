@@ -111,7 +111,7 @@ namespace INIParser
                 throw new NoSectionException($"You must put {key} into section");
             }
             iniFile.Sections.Where(x => x.Name == currentSection)
-                .FirstOrDefault()?
+                .FirstOrDefault()
                 .Properties.Add(
                 new Property(key.Trim(), value.Trim()));
 

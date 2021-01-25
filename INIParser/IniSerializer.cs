@@ -1,4 +1,5 @@
-﻿using System;
+﻿using INIParser.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,16 +11,22 @@ namespace INIParser
         public string Serialize(object obj, IniConfiguration config)
         {
             var objProps = obj.GetType().GetProperties()
-                .Where(x => x.CanRead && 
+                .Where(x => x.CanRead &&
                 !x.PropertyType.IsGenericType &&
-                (x.PropertyType.IsPrimitive || x.PropertyType == typeof(string)))
-                .Select(x => (x.Name, x.GetValue(obj)));
+                (x.PropertyType.IsPrimitive || x.PropertyType == typeof(string)));
 
             var serialized = string.Empty;
             serialized += $"[{obj.GetType().Name}]\n";
             foreach (var item in objProps)
             {
-                serialized += $"{item.Name} {config.AssignmentSymbol} {item.Item2}\n";
+                string name = item.Name;
+                if (!config.IgnoreAttributes)
+                {
+                    var iniName = (IniPropertyName)item.GetCustomAttributes(false).Where(x => x is IniPropertyName).FirstOrDefault();
+                    if (iniName != null)
+                        name = iniName.Name;
+                }
+                serialized += $"{name} {config.AssignmentSymbol} {item.GetValue(obj)}\n";
             }
             return serialized;
 
