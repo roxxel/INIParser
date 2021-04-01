@@ -11,6 +11,7 @@ namespace INIParser.Tests
             var serializer = new IniSerializer();
             var message = new Message()
             {
+                MessageId = 123,
                 SenderName = "Ben",
                 SenderPhone = "+281726347181",
                 Content = "Hello, how it's going?",
@@ -27,6 +28,7 @@ namespace INIParser.Tests
             var serializer = new IniSerializer();
             var message = new Message()
             {
+                MessageId = 123,
                 SenderName = "Ben",
                 SenderPhone = "+281726347181",
                 Content = "Hello, how it's going?",
@@ -44,6 +46,7 @@ namespace INIParser.Tests
             var serializer = new IniSerializer();
             var message = new Message()
             {
+                MessageId = 123,
                 SenderName = "Ben",
                 SenderPhone = "+281726347181",
                 Content = "Hello, how it's going?",

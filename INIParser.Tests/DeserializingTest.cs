@@ -15,7 +15,7 @@ namespace INIParser.Tests
             var ini = new IniDataParser().ParseFromFile("Assets/deserialize.ini");
             var deserializer = new IniDeserializer();
             Message message = deserializer.Deserialize<Message>(ini, "Message");
-
+            Assert.Equal(123, message.MessageId);
             Assert.Equal("+281726347181", message.SenderPhone);
             Assert.Equal("Ben", message.SenderName);
             Assert.Equal("Roxxel", message.RecepientName);

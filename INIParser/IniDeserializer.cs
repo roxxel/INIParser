@@ -3,6 +3,7 @@ using INIParser.Parser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace INIParser
@@ -33,7 +34,23 @@ namespace INIParser
                 var value = ini[section][propName];
                 if (value == null)
                     continue;
-                    
+
+                var propType = prop.PropertyType;
+                if (propType != typeof(string))
+                {
+                    var parameters = new object[] { value, null };
+
+                    var method = propType.GetMethod("TryParse", BindingFlags.Static | BindingFlags.Public, null,
+                        new Type[] { typeof(string), typeof(int).MakeByRefType() }, null);
+
+                    var result = (bool)method.Invoke(null, parameters); 
+
+                    if (!result)
+                        continue;  
+
+                    prop.SetValue(obj, parameters[1]);
+                    continue;
+                }
                 prop.SetValue(obj, value);
             }
             return obj;

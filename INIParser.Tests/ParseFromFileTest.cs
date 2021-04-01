@@ -21,8 +21,10 @@ namespace INIParser.Tests
             var recepientName = messageSection["RecepientName"];
             var recepientPhone = messageSection["RecepientPhone"];
             var content = messageSection["Content"];
+            var messageId = messageSection["MessageId"];
 
 
+            Assert.Equal("123", messageId);
             Assert.Equal("+281726347181", senderPhone);
             Assert.Equal("Ben", senderName);
             Assert.Equal("Roxxel", recepientName);
@@ -47,8 +49,10 @@ namespace INIParser.Tests
             var recepientName = messageSection["RecepientName"];
             var recepientPhone = messageSection["RecepientPhone"];
             var content = messageSection["Content"];
+            var messageId = messageSection["MessageId"];
 
 
+            Assert.Equal("123", messageId);
             Assert.Equal("+281726347181", senderPhone);
             Assert.Equal("Ben", senderName);
             Assert.Equal("Roxxel", recepientName);
