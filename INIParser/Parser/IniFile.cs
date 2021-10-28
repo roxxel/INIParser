@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace INIParser.Parser
 {
@@ -45,7 +43,6 @@ namespace INIParser.Parser
             }
         }
 
-
         public struct Range
         {
             int start;
@@ -53,47 +50,28 @@ namespace INIParser.Parser
 
             public int Start
             {
-                get
-                {
-                    return start;
-                }
-
-                set
-                {
-                    start = value < 0 ? 0 : value;
-                }
+                get => start;
+                set => start = value < 0 ? 0 : value;
             }
 
             public int Length
             {
-                get
-                {
-                    return length;
-                }
-
-                set
-                {
-                    length = value < 0 ? 0 : value;
-                }
+                get => length;
+                set => length = value < 0 ? 0 : value;
             }
 
             public int End
             {
-                get
-                {
-                    return length <= 0 ? 0 : start + (length - 1);
-                }
+                get => length <= 0 ? 0 : start + (length - 1);
             }
 
-            public bool IsEmpty { get { return length == 0; } }
+            public bool IsEmpty { get => length == 0; }
 
 
             public static Range FromTo(int start, int end)
             {
                 if (end - start < 0 || start < 0 || end < 0)
-                {
                     return new Range();
-                }
 
                 return new Range { Start = start, Length = end - start + 1 };
             }
@@ -106,11 +84,9 @@ namespace INIParser.Parser
         }
 
     }
+
     public static class StringExtension
     {
-        public static string SubstringWithRange(this string str, IniFile.Range range)
-        {
-            return str.Substring(range.Start, range.End - range.Start);
-        }
+        public static string SubstringWithRange(this string str, IniFile.Range range) => str[range.Start..range.End];
     }
 }

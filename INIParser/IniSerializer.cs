@@ -1,8 +1,6 @@
 ﻿using INIParser.Attributes;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Reflection;
 
 namespace INIParser
 {
@@ -22,18 +20,17 @@ namespace INIParser
                 string name = item.Name;
                 if (!config.IgnoreAttributes)
                 {
-                    var iniName = (IniPropertyName)item.GetCustomAttributes(false).Where(x => x is IniPropertyName).FirstOrDefault();
+                    var iniName = item.GetCustomAttributes(false)
+                        .Where(x => x is IniPropertyName)
+                        .FirstOrDefault() as IniPropertyName;
                     if (iniName != null)
                         name = iniName.Name;
                 }
                 serialized += $"{name} {config.AssignmentSymbol} {item.GetValue(obj)}\n";
             }
             return serialized;
+        }
 
-        }
-        public string Serialize(object obj)
-        {
-            return Serialize(obj, new IniConfiguration());
-        }
+        public string Serialize(object obj) => Serialize(obj, new IniConfiguration());
     }
 }
