@@ -11,17 +11,12 @@ namespace INIParser
     {
         private IniFile iniFile { get; set;  }
         private string currentSection = null;
-        private IniConfiguration configuration;
+        private readonly IniConfiguration configuration;
 
-        public IniDataParser(IniConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
+        public IniDataParser(IniConfiguration configuration) => this.configuration = configuration;
 
-        public IniDataParser() : this(new IniConfiguration())
-        {
-           
-        } 
+        public IniDataParser() : this(new IniConfiguration()) { }
+
         public IniFile Parse(string iniFile)
         {
             this.iniFile = new IniFile();
@@ -35,25 +30,14 @@ namespace INIParser
                 }
                 catch (Exception e)
                 {
-                    if (configuration.SkipInvalidLines)
+                    if (!configuration.SkipInvalidLines)
                         throw e;
                 }
             }
 
             return this.iniFile;
         }
-        public IniFile ParseFromFile(string path)
-        {
-            if (File.Exists(path))
-            {
-                var file = File.ReadAllText(path);
-                return Parse(file);
-            }
-            else
-            {
-                throw new FileNotFoundException("File doesn't exists");
-            }
-        }
+        public IniFile ParseFromFile(string path) => File.Exists(path) ? Parse(File.ReadAllText(path)) : throw new FileNotFoundException("File doesn't exists");
 
 
         private void ParseLine(string line)
@@ -67,14 +51,7 @@ namespace INIParser
         }
 
 
-        private bool ParseComment(string line)
-        {
-            if (line.Trim().StartsWith(configuration.CommentSymbol))
-            {
-                return true;
-            }
-            return false;
-        }
+        private bool ParseComment(string line) => line.Trim().StartsWith(configuration.CommentSymbol);
 
         private bool ParseSection(string line)
         {
@@ -107,9 +84,7 @@ namespace INIParser
             var value = line.SubstringWithRange(valueRange);
 
             if (currentSection == null)
-            {
                 throw new NoSectionException($"You must put {key} into section");
-            }
             iniFile.Sections.Where(x => x.Name == currentSection)
                 .FirstOrDefault()
                 .Properties.Add(
@@ -117,7 +92,5 @@ namespace INIParser
 
             return true;
         }
-
-
     }
 }
