@@ -1,10 +1,8 @@
 ﻿using INIParser.Attributes;
 using INIParser.Parser;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace INIParser
 {
@@ -54,8 +52,6 @@ namespace INIParser
                 prop.SetValue(obj, value);
             }
             return obj;
-
         }
-
     }
 }
